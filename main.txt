@@ -1,0 +1,52 @@
+""" Main App """
+
+import multiprocessing
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+
+from base import Base, database, engine
+
+from src.categories import main as category_router
+from src.products import main as product_router
+from src.units import main as unit_router
+
+APP = FastAPI(title="REST API using FastAPI PostgreSQL Async EndPoints")
+APP.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@APP.on_event("startup")
+async def startup():
+    """ Start endpoint """
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+    await database.connect()
+
+
+@APP.on_event("shutdown")
+async def shutdown():
+    """ Shutdown endpoint """
+    await database.disconnect()
+
+
+@APP.get("/")
+async def root():
+    """ Goto root """
+    return {"message": "Welcome to Yoga Fastapi Postgresql"}
+
+APP.include_router(category_router.ROUTER)
+APP.include_router(product_router.ROUTER)
+APP.include_router(unit_router.ROUTER)
+
+if __name__ == "__main__":
+    multiprocessing.freeze_support()
+    uvicorn.run("app:app", host="127.0.0.1", port=8000,
+                reload=True, workers=2, debug=True)
