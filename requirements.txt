@@ -21,7 +21,6 @@ lazy-object-proxy==1.4.3
 marshmallow==3.14.1
 mccabe==0.6.1
 pipenv==2021.11.23
-pkg_resources==0.0.0
 platformdirs==2.4.0
 psycopg2==2.9.2
 psycopg2-binary==2.9.2
