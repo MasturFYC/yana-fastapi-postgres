@@ -30,9 +30,10 @@ RUN adduser -D -s /bin/bash -g '' -h /home/admin admin
 USER admin
 WORKDIR /home/admin
 
-RUN python -m pip install --upgrade pip
-
-RUN python -m pip install --user --upgrade cffi setuptools
+RUN python -m pip install --upgrade pip && \
+	python -m pip install --user --upgrade \
+	cffi \
+	setuptools
 
 # RUN pip install --user --no-cache-dir -U 
 
@@ -44,10 +45,10 @@ FROM base
 RUN adduser -D -s /bin/bash -g '' -h /home/admin admin
 USER admin
 WORKDIR /home/admin
-COPY --from=builder /home/admin /home/admin
-COPY ./src /home/admin/src
-COPY ./app.py /home/admin
-COPY ./.env /home/admin
+COPY --from=builder /home/admin /home/admin && \
+	COPY ./src /home/admin/src && \
+	COPY ./app.py /home/admin && \
+	COPY ./.env /home/admin
 
 ENV PATH="/home/admin/.local/bin:${PATH}"
 EXPOSE 8000
