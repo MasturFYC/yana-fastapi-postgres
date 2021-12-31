@@ -39,7 +39,7 @@ async def read_stock(pid: int,
     res = await dal.stock_get_one(pid)
     if res is None:
         raise HTTPException(status_code=404, detail="Product not found")
-    return res  # .__dict__
+    return res.__dict__
 
 
 @ROUTER.post("/", response_model=StockOut, status_code=status.HTTP_201_CREATED)
@@ -62,7 +62,7 @@ async def update_stock(pid: int, payload: StockIn,
     if res is None:
         raise HTTPException(status_code=500, detail="Product name exist")
 
-    return res  # //.__dict__
+    return res.__dict__
 
 
 @ROUTER.delete("/{pid}/", status_code=status.HTTP_200_OK)

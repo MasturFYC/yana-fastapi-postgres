@@ -1,6 +1,7 @@
 """ User Schema """
 
 from pydantic import BaseModel
+from typing import Optional
 
 class UserIn(BaseModel):
     """ router parameter in """
@@ -23,3 +24,4 @@ class UserGet(BaseModel):
     name: str
     email: str
     role: str
+    token: Optional[str] = None

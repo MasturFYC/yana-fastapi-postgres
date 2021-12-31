@@ -1,5 +1,6 @@
 {
-    "python.pythonPath": "env\\Scripts\\python.exe",
+    "python.pythonPath": "env/Scripts/python.exe",
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.analysis.extraPaths": ["./env/lib/python3.9/site-packages/env_loader/*","/home/fyc/projects/yana-fastapi-postgres/env/lib/python3.9/site-packages/python_env_loader-0.0.2.dist-info/*"]
 }
