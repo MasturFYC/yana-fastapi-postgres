@@ -54,4 +54,4 @@ app.include_router(user_router.ROUTER)
 if __name__ == "__main__":
     multiprocessing.freeze_support()
     uvicorn.run("app:app", host="127.0.0.1", port=8000,
-                reload=True, workers=1, debug=True)
+                reload=True, workers=2, debug=False)
